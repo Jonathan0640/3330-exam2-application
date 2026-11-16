@@ -49,3 +49,20 @@ const books = [ //hard-coded books to test website
         img: "/images/Annihilation.png"
     }
 ]
+
+//access books in other files
+const getBooks=() =>{
+    return books;
+};
+
+const reserveBoook=(book) =>{
+    book.reserved = true;
+};
+
+const returnBook=(book)=>{
+    book.reserved = false;
+};
+
+export default {
+    getBooks
+}
