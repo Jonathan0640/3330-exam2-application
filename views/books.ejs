@@ -1,2 +1,68 @@
 <%- include('partials/header') %>
+
+<main class="books-page">
+    <h1>Books</h1>
+
+    <% if (message) { %>
+        <p role="status"><%= message %></p>
+    <% } %>
+
+    <section class="books-grid" aria-label="Book catalog">
+        <% books.forEach((book) => { %>
+            <article class="card">
+                <% if (book.img) { %>
+                    <img src="<%= book.img %>" alt="Cover of <%= book.name %>" class="card-img">
+                <% } %>
+                <div class="card-body">
+                    <h2 class="card-title"><%= book.name %></h2>
+                    <p class="card-text">Author: <%= book.author %></p>
+                    <p class="card-text">Genre: <%= book.genre %></p>
+                    <p class="card-text">Age rating: <%= book.Age_Rating %>+</p>
+                    <p class="card-text">Location: <%= book.location %></p>
+
+                    <% if (book.reserved) { %>
+                        <p>Reserved</p>
+                    <% } else if (user) { %>
+                        <form action="/books/<%= book.id %>/reserve" method="POST">
+                            <button type="submit">Reserve</button>
+                        </form>
+                    <% } else { %>
+                        <a href="/signin">Sign in to reserve this book</a>
+                    <% } %>
+                </div>
+            </article>
+        <% }); %>
+    </section>
+
+    <section class="admin-book-form" aria-labelledby="add-book-heading">
+        <% if (!user) { %>
+            <h2 id="add-book-heading">Add a book</h2>
+            <p><a href="/signin">Sign in as an admin to add books</a></p>
+        <% } else if (user.role === 'admin') { %>
+            <h2 id="add-book-heading">Add a book</h2>
+            <form action="/books" method="POST">
+                <label for="name">Title</label>
+                <input id="name" name="name" type="text" required>
+
+                <label for="author">Author</label>
+                <input id="author" name="author" type="text" required>
+
+                <label for="genre">Genre</label>
+                <input id="genre" name="genre" type="text" required>
+
+                <label for="Age_Rating">Age rating</label>
+                <input id="Age_Rating" name="Age_Rating" type="number" min="0" required>
+
+                <label for="location">Shelf location</label>
+                <input id="location" name="location" type="text" required>
+
+                <label for="img">Cover image path (optional)</label>
+                <input id="img" name="img" type="text" placeholder="/images/example.png">
+
+                <button type="submit">Add book</button>
+            </form>
+        <% } %>
+    </section>
+</main>
+
 <%- include('partials/footer') %>

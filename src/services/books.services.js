@@ -1,5 +1,6 @@
 const books = [ //hard-coded books to test website
     {
+        id: 1,
         name: "Percy Jackson" ,
         reserved: false, // bool value for  if book is reserved/checked out
         genre: "fiction",
@@ -10,6 +11,7 @@ const books = [ //hard-coded books to test website
     },
 
     {
+        id: 2,
         name: "Lord Of The Flies" ,
         reserved: false, 
         genre: "fiction",
@@ -20,6 +22,7 @@ const books = [ //hard-coded books to test website
     },
 
     {
+        id: 3,
         name: "Educated" ,
         reserved: false, 
         genre: "non-fiction",
@@ -30,16 +33,18 @@ const books = [ //hard-coded books to test website
     },
 
     {
+        id: 4,
         name: "A Short History of Nearly Everything" ,
         reserved: false, 
         genre: "non-fiction",
         author: "Bill Bryson",
         Age_Rating: 18, //set to 18+ to test filter for kids books only
         location: "N-1",
-        img: "/images/ShortHistory.png"
+        img: "/images/shortHistory.png"
     },
 
     {
+        id: 5,
         name: "Annihilation" ,
         reserved: true, // set to true to test to filter out reserved books
         genre: "fiction",
@@ -55,14 +60,33 @@ const getBooks=() =>{
     return books;
 };
 
-const reserveBoook=(book) =>{
-    book.reserved = true;
+const getBookById = (id) => {
+    return books.find((book) => book.id === Number(id));
 };
 
-const returnBook=(book)=>{
-    book.reserved = false;
+const reserveBook = (id) => {
+    const book = getBookById(id);
+    if (!book || book.reserved) {
+        return false;
+    }
+
+    book.reserved = true;
+    return true;
+};
+
+const addBook = (bookData) => {
+    const book = {
+        id: Math.max(0, ...books.map((existingBook) => existingBook.id)) + 1,
+        ...bookData,
+        reserved: false
+    };
+    books.push(book);
+    return book;
 };
 
 export default {
-    getBooks
+    getBooks,
+    getBookById,
+    reserveBook,
+    addBook
 }
