@@ -7,7 +7,7 @@ const getComputers = (req,res) =>{
     
     //to check if it has access to computers database
     const computers = computerServices.getAllComputers();
-    res.status(200).json(computers);
+    res.status(200)//.json(computers);
     console.log(computers);
 }
 
@@ -38,5 +38,6 @@ const createReservation = (req, res) =>{
 
 //handle request/responses here for computer
 export default{
-    getComputers
+    getComputers,
+    createReservation
 }
