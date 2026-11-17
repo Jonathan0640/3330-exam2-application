@@ -4,11 +4,8 @@ import { randomBytes } from 'node:crypto'
 import computerRouter from './src/routes/computers.routes.js' //for the computer page
 import bookRouter from './src/routes/books.routes.js'
 import adminRouter from './src/routes/admin.routes.js'
-<<<<<<< HEAD
 import signupRouter from './src/routes/signup.routes.js';
-=======
 import usersController from './src/controller/users.controller.js'
->>>>>>> 062c19faf575f014dbf8dc9f6b3478eb1872d40d
 
 const app = express();
 const sessionSecret = process.env.SESSION_SECRET;
