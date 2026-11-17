@@ -1,12 +1,57 @@
 <%- include('partials/header') %>
 
-    <h1>WELCOME TO THE LIBRARY</h1>
+<main class="home-page">
+    <section class="home-hero" aria-labelledby="home-heading">
+        <div class="home-hero-copy">
+            <p class="home-eyebrow">WELCOME TO YOUR LIBRARY</p>
+            <h1 id="home-heading">A good book can take you anywhere.</h1>
+            <p class="home-intro">
+                Find your next read, discover something new, or stop by to use a library computer.
+                There’s always something to explore.
+            </p>
+            <div class="home-actions">
+                <a class="home-button home-button-primary" href="/books">Browse the books</a>
+                <a class="home-button home-button-secondary" href="/computers">Explore computers</a>
+            </div>
+        </div>
 
-    <!--button to go to the computers page-->
-    <a class="home-buttons" href='/computers' role='button'>Go to computers</a>
+        <div class="home-hero-art" aria-label="Featured book">
+            <img src="/images/Percy_Jackson.png" alt="Cover of Percy Jackson: The Lightning Thief">
+            <div class="home-art-note">
+                <span>Pick up a new adventure</span>
+                <strong>Your next favorite is waiting.</strong>
+            </div>
+        </div>
+    </section>
 
-    <!--button for the books page-->
-    <a class="home-buttons" href="/books" role='button'>Go to books</a>
+    <section class="home-services" aria-labelledby="services-heading">
+        <div class="home-section-heading">
+            <p class="home-eyebrow">MAKE YOURSELF AT HOME</p>
+            <h2 id="services-heading">A little something for everyone</h2>
+        </div>
 
+        <div class="home-service-grid">
+            <a class="home-service-card" href="/books">
+                <span class="home-service-icon" aria-hidden="true">01</span>
+                <h3>Find a book</h3>
+                <p>Browse the collection and find a book to match your mood.</p>
+                <span class="home-card-link">Explore the catalog <span aria-hidden="true">→</span></span>
+            </a>
+
+            <a class="home-service-card" href="/computers">
+                <span class="home-service-icon" aria-hidden="true">02</span>
+                <h3>Use a computer</h3>
+                <p>See the computers available in the library.</p>
+                <span class="home-card-link">View computers <span aria-hidden="true">→</span></span>
+            </a>
+
+            <div class="home-service-card home-service-card-note">
+                <span class="home-service-icon" aria-hidden="true">03</span>
+                <h3>A place to explore</h3>
+                <p>Take your time, follow your curiosity, and enjoy your visit.</p>
+            </div>
+        </div>
+    </section>
+</main>
 
 <%- include('partials/footer') %>

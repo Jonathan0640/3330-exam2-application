@@ -2,6 +2,74 @@ import bookServices from '../services/books.services.js'
 import libraryCardServices from '../services/librarycard.services.js'
 import userServices from '../services/user.services.js'
 
+const getSignIn = (req, res) => {
+    return res.render('signin.ejs', {
+        error: undefined,
+        name: '',
+        email: '',
+        phoneNumber: ''
+    });
+};
+
+const signIn = (req, res, next) => {
+    const body = req.body || {};
+    const name = typeof body.name === 'string' ? body.name.trim() : '';
+    const email = typeof body.email === 'string' ? body.email.trim() : '';
+    const phoneNumber = typeof body.phoneNumber === 'string' ? body.phoneNumber.trim() : '';
+
+    if (!name || !email || !phoneNumber || name.length > 100 || email.length > 254 || phoneNumber.length > 30) {
+        return res.status(400).render('signin.ejs', {
+            error: 'Enter your name, email, and phone number.',
+            name,
+            email,
+            phoneNumber
+        });
+    }
+
+    const user = userServices.authenticateUser(name, email, phoneNumber);
+    if (!user) {
+        return res.status(401).render('signin.ejs', {
+            error: 'Those details do not match an existing user.',
+            name,
+            email,
+            phoneNumber
+        });
+    }
+
+    return req.session.regenerate((error) => {
+        if (error) {
+            return next(error);
+        }
+
+        req.session.user = {
+            userID: user.userID,
+            name: user.name,
+            email: user.email,
+            role: user.role
+        };
+
+        return req.session.save((saveError) => {
+            if (saveError) {
+                return next(saveError);
+            }
+            return res.redirect('/books');
+        });
+    });
+};
+
+const requireAdmin = (req, res, next) => {
+    const user = req.session && req.session.user;
+    if (!user) {
+        return res.redirect('/signin');
+    }
+
+    if (user.role !== 'admin') {
+        return res.sendStatus(403);
+    }
+
+    return next();
+};
+
 const getAdmin = (req, res) => {
     const messages = {
         created: 'Book added to the catalog.',
@@ -22,12 +90,6 @@ const getAdmin = (req, res) => {
 };
 
 const createBook = (req, res) => {
-    const user = req.session && req.session.user;
-    // Allow anonymous submissions for testing until sign-in is implemented.
-    if (user && user.role !== 'admin') {
-        return res.sendStatus(403);
-    }
-
     const body = req.body || {};
     const name = typeof body.name === 'string' ? body.name.trim() : '';
     const author = typeof body.author === 'string' ? body.author.trim() : '';
@@ -58,12 +120,6 @@ const createBook = (req, res) => {
 };
 
 const promoteUser = (req, res) => {
-    const currentUser = req.session && req.session.user;
-    if (currentUser && currentUser.role !== 'admin') {
-        return res.sendStatus(403);
-    }
-
-    // Allow promotion testing before sign-in is implemented.
     const userID = Number(req.body && req.body.userID);
     if (!Number.isInteger(userID) || userID < 1) {
         return res.status(400).send('Select a valid user.');
@@ -77,6 +133,9 @@ const promoteUser = (req, res) => {
 };
 
 export default {
+    getSignIn,
+    signIn,
+    requireAdmin,
     getAdmin,
     createBook,
     promoteUser
