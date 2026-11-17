@@ -18,8 +18,10 @@ app.use('/signin', (req, res) =>{
 })
 
 app.use('/computers', computerRouter); //later finished result when computer page is done
-// app.get("/computers", (req, res) =>{
-//     res.render("computers.ejs");
-// });
+
+app.post("/computers", (req, res) =>{
+    res.render("home.ejs");
+});
+
 
 export default app;

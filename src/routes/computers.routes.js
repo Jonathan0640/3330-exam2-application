@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.get('/', computersController.getComputers);  //route rendering computers page
 
-//router.post('/', computersController.createReservation);    //route to post reservation
+router.post('/', computersController.createReservation);    //route to post reservation
 
 export default router
