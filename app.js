@@ -6,6 +6,7 @@ const app = express();
 
 app.use(express.static("public"));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) =>{
     res.render("home.ejs");
@@ -18,10 +19,6 @@ app.use('/signin', (req, res) =>{
 })
 
 app.use('/computers', computerRouter); //later finished result when computer page is done
-
-app.post("/computers", (req, res) =>{
-    res.render("home.ejs");
-});
 
 
 export default app;

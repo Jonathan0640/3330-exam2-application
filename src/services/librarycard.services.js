@@ -23,6 +23,11 @@ const libraryCards = [
     }
 ];
 
+const getAllCards = ()=>{
+    return libraryCards;
+}
+
 export default{
-    getUserID
+    getUserID,
+    getAllCards
 }
