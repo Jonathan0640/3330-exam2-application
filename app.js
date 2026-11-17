@@ -6,6 +6,7 @@ const app = express();
 
 app.use(express.static("public"));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) =>{
     res.render("home.ejs");
@@ -23,8 +24,6 @@ app.use('/books', bookRouter)
 
 
 app.use('/computers', computerRouter); //later finished result when computer page is done
-// app.get("/computers", (req, res) =>{
-//     res.render("computers.ejs");
-// });
+
 
 export default app;

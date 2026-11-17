@@ -2,16 +2,18 @@
 const reservations =[
     {
         reservationID: 0,
-        reservationType: "computer",
+        reservationType: "Computer",
         cardNumber: 0,
         userID: 0
     }
 ];
 
+//function to access reservation database
 const getReservations = ()=>{
     return reservations;
 }
 
+//function to append reservation
 const addReservation = (params)=>{
      reservations.push(params); //params will be a reservations object
 }
