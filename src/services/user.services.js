@@ -26,6 +26,22 @@ const getAllUsers = () => {
     return users;
 };
 
+const authenticateUser = (name, email, phoneNumber) => {
+    if ([name, email, phoneNumber].some((value) => typeof value !== 'string' || !value.trim())) {
+        return undefined;
+    }
+
+    const normalizedName = name.trim().toLowerCase();
+    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedPhone = phoneNumber.replace(/\D/g, '');
+
+    return users.find((user) =>
+        user.name.toLowerCase() === normalizedName
+        && user.email.toLowerCase() === normalizedEmail
+        && user.phoneNumber.replace(/\D/g, '') === normalizedPhone
+    );
+};
+
 const promoteUser = (userID) => {
     const user = users.find((existingUser) => existingUser.userID === Number(userID));
     if (!user) {
@@ -38,5 +54,6 @@ const promoteUser = (userID) => {
 
 export default {
     getAllUsers,
+    authenticateUser,
     promoteUser
 };
