@@ -2,6 +2,7 @@ import express from 'express'
 import computerRouter from './src/routes/computers.routes.js' //for the computer page
 import bookRouter from './src/routes/books.routes.js'
 import adminRouter from './src/routes/admin.routes.js'
+import signupRouter from './src/routes/signup.routes.js';
 
 const app = express();
 
@@ -27,7 +28,7 @@ app.use('/signup', (req, res) =>{
 
 app.use('/books', bookRouter)
 app.use('/admin', adminRouter)
-
+app.use('/signup', signupRouter);
 
 app.use('/computers', computerRouter); //later finished result when computer page is done
 

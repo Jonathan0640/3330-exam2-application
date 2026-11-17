@@ -1,9 +1,30 @@
 <%- include('partials/header') %>
 
 <main>
-    <h1>Sign Up</h1>
-    <p>Sign-in is not set up yet. Once it is available, signed-in users can reserve books and admins can add books.</p>
-    <a href="/books">Return to books</a>
+   <h1>Sign Up</h1>
+    <% if (signupSuccess) { %>
+        <h2>Registration Successful!</h2>
+        <p>Your library card number is:</p>
+        <h3><%= libraryCard %></h3>
+        <p>Keep this number to reserve books and computers.</p>
+        <a href="/">Return Home</a>
+    <% } else { %>
+        <form action="/signup" method="POST">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phoneNum">Phone Number</label>
+                <input type="text" id="phoneNum" name="phoneNum" required>
+            </div>
+            <button type="submit">Complete Sign Up</button>
+        </form>
+    <% } %>
 </main>
 
 <%- include('partials/footer') %>

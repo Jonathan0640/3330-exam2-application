@@ -27,7 +27,24 @@ const getAllCards = ()=>{
     return libraryCards;
 }
 
+
+const addLibraryCard = (userID) => {
+
+    const newCard = {
+        cardNumber: Math.max(
+            1000,
+            ...libraryCards.map((card) => card.cardNumber)
+        ) + 1,
+
+        userID: userID,
+        date: "Today"
+    };
+
+    libraryCards.push(newCard);
+};
+
 export default{
     getUserID,
-    getAllCards
+    getAllCards,
+    addLibraryCard
 }
