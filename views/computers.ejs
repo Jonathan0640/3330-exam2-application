@@ -3,47 +3,22 @@
 
 <h1>Welcome to computers :D</h1>
 
-<div class="card">
-        <img src="../public/images/computer.png" alt="computer image" class="card-img">
-        <div class="card-body">
-            <h3 class="card-title">computer 1</h3>
-            <p class="card-text">Location: Computer Lab</p>
+<% computers.forEach((computer) => { %>
+        <div class="card">
+                <img src="/images/computer.png" alt="computer image" class="card-img">
+                <div class="card-body">
+                <h3 class="card-title">ComputerID: <%= computer.computerID %></h3>
+                <p class="card-text">Location: <%= computer.location %></p>
+                </div>
         </div>
-</div>
-<div class="card">
-        <img src="../public/images/computer.png" alt="computer image" class="card-img">
-        <div class="card-body">
-            <h3 class="card-title">computer 2</h3>
-            <p class="card-text">Location: Computer Lab</p>
-        </div>
-</div>
-<div class="card">
-        <img src="../public/images/computer.png" alt="computer image" class="card-img">
-        <div class="card-body">
-            <h3 class="card-title">computer 3</h3>
-            <p class="card-text">Location: Computer Lab</p>
-        </div>
-</div>
-<div class="card">
-        <img src="../public/images/computer.png" alt="computer image" class="card-img">
-        <div class="card-body">
-            <h3 class="card-title">computer 4</h3>
-            <p class="card-text">Location: Computer Lab</p>
-        </div>
-</div>
-<div class="card">
-        <img src="../public/images/computer.png" alt="computer image" class="card-img">
-        <div class="card-body">
-            <h3 class="card-title">computer 5</h3>
-            <p class="card-text">Location: Computer Lab</p>
-        </div>
-</div>
+<% }); %>
 
 <!-- button will post a reservation object to reservation database with fields-->
-<form action="/computer" method="POST">
+<form action="/computers" method="POST">
         <div class="form-group">
           <label for="library-card">Enter library card to reserve</label>
-          <input type="text" name="library-card">
+          <input type="text" name="librarycard">
+          <br>
           <label for="computerid">Enter Computer ID you want to reserve</label>
           <input type="number" name="computerid">
         </div>

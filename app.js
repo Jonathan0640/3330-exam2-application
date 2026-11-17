@@ -7,7 +7,7 @@ const app = express();
 
 app.use(express.static("public"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
     res.locals.user = req.session && req.session.user;
     next();
@@ -30,8 +30,6 @@ app.use('/admin', adminRouter)
 
 
 app.use('/computers', computerRouter); //later finished result when computer page is done
-// app.get("/computers", (req, res) =>{
-//     res.render("computers.ejs");
-// });
+
 
 export default app;
