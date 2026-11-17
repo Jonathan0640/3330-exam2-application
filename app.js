@@ -11,11 +11,16 @@ app.get("/", (req, res) =>{
     res.render("home.ejs");
 });
 
-app.use('/books', bookRouter)
-
 app.use('/signin', (req, res) =>{
     res.render("signin.ejs");
 })
+
+app.use('/signup', (req, res) =>{
+    res.render("signup.ejs");
+})
+
+app.use('/books', bookRouter)
+
 
 app.use('/computers', computerRouter); //later finished result when computer page is done
 // app.get("/computers", (req, res) =>{
