@@ -21,3 +21,22 @@ const users = [
         role: "user"
     }
 ];
+
+const getAllUsers = () => {
+    return users;
+};
+
+const promoteUser = (userID) => {
+    const user = users.find((existingUser) => existingUser.userID === Number(userID));
+    if (!user) {
+        return false;
+    }
+
+    user.role = "admin";
+    return true;
+};
+
+export default {
+    getAllUsers,
+    promoteUser
+};

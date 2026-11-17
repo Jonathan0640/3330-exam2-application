@@ -34,35 +34,9 @@
         <% }); %>
     </section>
 
-    <section class="admin-book-form" aria-labelledby="add-book-heading">
-        <% if (!user) { %>
-            <h2 id="add-book-heading">Add a book</h2>
-            <p><a href="/signin">Sign in as an admin to add books</a></p>
-        <% } else if (user.role === 'admin') { %>
-            <h2 id="add-book-heading">Add a book</h2>
-            <form action="/books" method="POST">
-                <label for="name">Title</label>
-                <input id="name" name="name" type="text" required>
-
-                <label for="author">Author</label>
-                <input id="author" name="author" type="text" required>
-
-                <label for="genre">Genre</label>
-                <input id="genre" name="genre" type="text" required>
-
-                <label for="Age_Rating">Age rating</label>
-                <input id="Age_Rating" name="Age_Rating" type="number" min="0" required>
-
-                <label for="location">Shelf location</label>
-                <input id="location" name="location" type="text" required>
-
-                <label for="img">Cover image path (optional)</label>
-                <input id="img" name="img" type="text" placeholder="/images/example.png">
-
-                <button type="submit">Add book</button>
-            </form>
-        <% } %>
-    </section>
+    <% if (user && user.role === 'admin') { %>
+        <p><a href="/admin">Open admin page</a></p>
+    <% } %>
 </main>
 
 <%- include('partials/footer') %>
