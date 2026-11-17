@@ -1,52 +1,101 @@
 <%- include('partials/header') %>
 
-<main class="books-page">
-    <h1>Admin</h1>
+<main class="admin-page">
+    <h1>Admin dashboard</h1>
 
     <% if (message) { %>
         <p role="status"><%= message %></p>
     <% } %>
 
-    <section class="admin-book-form" aria-labelledby="add-book-heading">
-        <h2 id="add-book-heading">Add a book</h2>
-        <form action="/admin/books" method="POST">
-            <label for="name">Title</label>
-            <input id="name" name="name" type="text" required>
+    <nav class="admin-dashboard-nav" aria-label="Admin tools">
+        <a href="#add-book">Add a book</a>
+        <a href="#reserved-books">Reserved books</a>
+        <a href="#library-cards">Library cards</a>
+        <a href="#promote-users">User roles</a>
+    </nav>
 
-            <label for="author">Author</label>
-            <input id="author" name="author" type="text" required>
+    <div class="admin-dashboard-grid">
+        <section class="admin-panel" id="add-book" aria-labelledby="add-book-heading">
+            <details>
+                <summary id="add-book-heading">Add a book</summary>
+                <form action="/admin/books" method="POST" class="admin-book-form">
+                    <label for="name">Title</label>
+                    <input id="name" name="name" type="text" required>
 
-            <label for="genre">Genre</label>
-            <input id="genre" name="genre" type="text" required>
+                    <label for="author">Author</label>
+                    <input id="author" name="author" type="text" required>
 
-            <label for="Age_Rating">Age rating</label>
-            <input id="Age_Rating" name="Age_Rating" type="number" min="0" required>
+                    <label for="genre">Genre</label>
+                    <input id="genre" name="genre" type="text" required>
 
-            <label for="location">Shelf location</label>
-            <input id="location" name="location" type="text" required>
+                    <label for="Age_Rating">Age rating</label>
+                    <input id="Age_Rating" name="Age_Rating" type="number" min="0" required>
 
-            <label for="img">Cover image path (optional)</label>
-            <input id="img" name="img" type="text" placeholder="/images/example.png">
+                    <label for="location">Shelf location</label>
+                    <input id="location" name="location" type="text" required>
 
-            <button type="submit">Add book</button>
-        </form>
-    </section>
+                    <label for="img">Cover image path (optional)</label>
+                    <input id="img" name="img" type="text" placeholder="/images/example.png">
 
-    <section aria-labelledby="reserved-books-heading">
-        <h2 id="reserved-books-heading">Reserved items</h2>
-        <% if (reservedBooks.length === 0) { %>
-            <p>No books are currently reserved.</p>
-        <% } else { %>
-            <ul>
-                <% reservedBooks.forEach((book) => { %>
-                    <li>
-                        <strong><%= book.name %></strong> by <%= book.author %>
-                        — Genre: <%= book.genre %>; Location: <%= book.location %>
-                    </li>
-                <% }); %>
-            </ul>
-        <% } %>
-    </section>
+                    <button type="submit">Add book</button>
+                </form>
+            </details>
+        </section>
+
+        <section class="admin-panel" id="reserved-books" aria-labelledby="reserved-books-heading">
+            <h2 id="reserved-books-heading">Reserved books</h2>
+            <% if (reservedBooks.length === 0) { %>
+                <p>No books are currently reserved.</p>
+            <% } else { %>
+                <ul class="admin-list">
+                    <% reservedBooks.forEach((book) => { %>
+                        <li>
+                            <strong><%= book.name %></strong> by <%= book.author %>
+                            — Genre: <%= book.genre %>; Location: <%= book.location %>
+                        </li>
+                    <% }); %>
+                </ul>
+            <% } %>
+        </section>
+
+        <section class="admin-panel" id="library-cards" aria-labelledby="library-cards-heading">
+            <h2 id="library-cards-heading">Library cards</h2>
+            <% if (libraryCards.length === 0) { %>
+                <p>No library cards are registered.</p>
+            <% } else { %>
+                <ul class="admin-list">
+                    <% libraryCards.forEach((card) => { %>
+                        <li>
+                            Card #<%= card.cardNumber %>
+                            <% if (card.user) { %>
+                                — <%= card.user.name %> (<%= card.user.email %>; <%= card.user.phoneNumber %>)
+                            <% } else { %>
+                                — User information unavailable
+                            <% } %>
+                            — Issued: <%= card.date %>
+                        </li>
+                    <% }); %>
+                </ul>
+            <% } %>
+        </section>
+
+        <section class="admin-panel" id="promote-users" aria-labelledby="promote-users-heading">
+            <h2 id="promote-users-heading">Promote a user to admin</h2>
+            <% if (usersToPromote.length === 0) { %>
+                <p>All users are already admins.</p>
+            <% } else { %>
+                <form action="/admin/users/promote" method="POST">
+                    <label for="userID">User</label>
+                    <select id="userID" name="userID" required>
+                        <% usersToPromote.forEach((user) => { %>
+                            <option value="<%= user.userID %>"><%= user.name %> — <%= user.email %></option>
+                        <% }); %>
+                    </select>
+                    <button type="submit">Make admin</button>
+                </form>
+            <% } %>
+        </section>
+    </div>
 
     <p><a href="/books">Back to book catalog</a></p>
 </main>

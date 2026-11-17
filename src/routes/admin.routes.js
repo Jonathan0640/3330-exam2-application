@@ -1,9 +1,10 @@
 import express from 'express'
-import booksController from '../controller/books.controller.js'
+import usersController from '../controller/users.controller.js'
 
 const router = express.Router();
 
-router.get('/', booksController.getAdmin);
-router.post('/books', booksController.createBook);
+router.get('/', usersController.getAdmin);
+router.post('/books', usersController.createBook);
+router.post('/users/promote', usersController.promoteUser);
 
 export default router;

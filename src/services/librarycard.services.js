@@ -15,3 +15,11 @@ const libraryCards = [
         date: "Today"
     }
 ];
+
+const getAllCards = () => {
+    return libraryCards;
+};
+
+export default {
+    getAllCards
+};
