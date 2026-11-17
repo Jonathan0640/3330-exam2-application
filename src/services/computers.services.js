@@ -2,23 +2,23 @@
 const computers = [
     {
         computerID: 1,
-        location: "computer lab"
+        location: "Study Room"
     },
     {
         computerID: 2,
-        location: "computer lab"
+        location: "Study Room"
     },
     {
         computerID: 3,
-        location: "computer lab"
+        location: "Computer Lab"
     },
     {
         computerID: 4,
-        location: "computer lab"
+        location: "Computer Lab"
     },
     {
         computerID: 5,
-        location: "computer lab"
+        location: "Computer Lab"
     },
 ];
 

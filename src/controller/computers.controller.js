@@ -2,12 +2,13 @@ import computerServices from '../services/computers.services.js'
 import reservationsServices from '../services/reservations.services.js';
 
 const getComputers = (req,res) =>{
-    //renders the computer page
-    res.render('computers.ejs');
-    
     //to check if it has access to computers database
     const computers = computerServices.getAllComputers();
     res.status(200)//.json(computers);
+
+    //renders the computer page
+    res.render('computers.ejs', {computers});
+
     console.log(computers);
 }
 
