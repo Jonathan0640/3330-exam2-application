@@ -3,13 +3,23 @@ import bookServices from '../services/books.services.js'
 const getBooks = (req, res) => {
     const user = req.session && req.session.user;
     const messages = {
-        reserved: 'That book is already reserved.',
-        created: 'Book added to the catalog.'
+        reserved: 'That book is already reserved.'
     };
 
     res.render('books.ejs', {
         books: bookServices.getBooks(),
         user,
+        message: messages[req.query.message]
+    });
+};
+
+const getAdmin = (req, res) => {
+    const messages = {
+        created: 'Book added to the catalog.'
+    };
+
+    return res.render('admin.ejs', {
+        reservedBooks: bookServices.getBooks().filter((book) => book.reserved),
         message: messages[req.query.message]
     });
 };
@@ -67,11 +77,12 @@ const createBook = (req, res) => {
         ...(img ? { img } : {})
     });
 
-    return res.redirect('/books?message=created');
+    return res.redirect('/admin?message=created');
 };
 
 export default {
     getBooks,
+    getAdmin,
     reserveBook,
     createBook
 };

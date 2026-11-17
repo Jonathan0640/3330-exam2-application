@@ -1,0 +1,54 @@
+<%- include('partials/header') %>
+
+<main class="books-page">
+    <h1>Admin</h1>
+
+    <% if (message) { %>
+        <p role="status"><%= message %></p>
+    <% } %>
+
+    <section class="admin-book-form" aria-labelledby="add-book-heading">
+        <h2 id="add-book-heading">Add a book</h2>
+        <form action="/admin/books" method="POST">
+            <label for="name">Title</label>
+            <input id="name" name="name" type="text" required>
+
+            <label for="author">Author</label>
+            <input id="author" name="author" type="text" required>
+
+            <label for="genre">Genre</label>
+            <input id="genre" name="genre" type="text" required>
+
+            <label for="Age_Rating">Age rating</label>
+            <input id="Age_Rating" name="Age_Rating" type="number" min="0" required>
+
+            <label for="location">Shelf location</label>
+            <input id="location" name="location" type="text" required>
+
+            <label for="img">Cover image path (optional)</label>
+            <input id="img" name="img" type="text" placeholder="/images/example.png">
+
+            <button type="submit">Add book</button>
+        </form>
+    </section>
+
+    <section aria-labelledby="reserved-books-heading">
+        <h2 id="reserved-books-heading">Reserved items</h2>
+        <% if (reservedBooks.length === 0) { %>
+            <p>No books are currently reserved.</p>
+        <% } else { %>
+            <ul>
+                <% reservedBooks.forEach((book) => { %>
+                    <li>
+                        <strong><%= book.name %></strong> by <%= book.author %>
+                        — Genre: <%= book.genre %>; Location: <%= book.location %>
+                    </li>
+                <% }); %>
+            </ul>
+        <% } %>
+    </section>
+
+    <p><a href="/books">Back to book catalog</a></p>
+</main>
+
+<%- include('partials/footer') %>

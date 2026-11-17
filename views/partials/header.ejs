@@ -18,10 +18,16 @@
       <a class="quick-nav" href="/" role='button'>Home</a>
       <a class="quick-nav" href="/books" role='button'>Books</a>
       <a class="quick-nav" href="/computers" role='button'>Computers</a>
-      <!-- <a class="quick-nav" href="/books" role='button'>Go to books</a> -->
-       <div class="quick-nav-signin">
-        <a class="quick-nav" href="/signup" role = 'button'>Log In</a>
-        <a class="quick-nav" href="/signin" role = 'button'>Sign Up</a>
+      <div class="quick-nav-signin">
+        <% if (user) { %>
+          <span>Hello, <%= user.name || user.username || 'there' %></span>
+          <% if (user.role === 'admin') { %>
+            <a class="quick-nav" href="/admin" role="button">Admin</a>
+          <% } %>
+        <% } else { %>
+          <a class="quick-nav" href="/signin" role="button">Log In</a>
+          <a class="quick-nav" href="/signup" role="button">Sign Up</a>
+        <% } %>
       </div>
     </nav>
   </header>
